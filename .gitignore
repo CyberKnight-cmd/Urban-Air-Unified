@@ -1,0 +1,8 @@
+*.env
+.env
+.venv/
+__pycache__/
+*.pyc
+uv.lock
+analytics_database.json
+unified_backend/static/audio/*.mp3
