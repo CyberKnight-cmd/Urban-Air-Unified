@@ -50,5 +50,5 @@ def get_supervisor_app():
         "Answer the user's queries by calling the appropriate tools. If they don't provide coordinates, ask for them."
     )
     
-    agent_executor = create_react_agent(model, tools, state_modifier=system_prompt)
+    agent_executor = create_react_agent(model, tools, prompt=system_prompt)
     return agent_executor
