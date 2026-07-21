@@ -195,17 +195,82 @@ curl -X 'POST' \
 ### `POST /api/v1/agents/chat`
 
 **Overview:** 
-A ReAct agent powered by LangGraph and OpenAI (`gpt-4o-mini`). The agent has been equipped with python tools that call the other 3 routes under the hood. It allows users to issue natural language commands (e.g., *"What is the forecast for Mumbai and what enforcement should we take?"*) and receive synthesized, autonomous answers. 
+A ReAct agent powered by LangGraph and Google GenAI (`gemini-2.5-flash`). The agent has been equipped with python tools that call the other 3 routes under the hood. It allows users to issue natural language commands (e.g., *"What is the forecast for Mumbai and what enforcement should we take?"*) and receive synthesized, autonomous answers. 
 
-*Note: Requires `OPENAI_API_KEY` in the `.env` file.*
+*Note: Requires `GEMINI_API_KEY` in the `.env` file.*
 
 ---
 
 ## 5. Analytics & Multi-City Scaling
+
 ### `GET /api/v1/analytics/city-comparison`
+
+**Overview:** 
+Interfaces with the `TinyDB` NoSQL document store (`analytics_database.json`) to return aggregated AQI and compliance rates for New Delhi, Mumbai, and Bangalore.
+
+**cURL Example:**
+```bash
+curl -X 'GET' \
+  'http://localhost:8000/api/v1/analytics/city-comparison' \
+  -H 'accept: application/json'
+```
+
+**Success Response (200 OK):**
+```json
+{
+  "cities": [
+    {
+      "city": "New Delhi",
+      "current_avg_aqi": 280,
+      "primary_pollutant_source": "Industrial",
+      "enforcement_compliance_rate": "65%",
+      "trend": "increasing",
+      "last_updated": "2026-07-24T12:00:00Z",
+      "active_interventions": 14
+    },
+    {
+      "city": "Mumbai",
+      "current_avg_aqi": 120,
+      "primary_pollutant_source": "Traffic",
+      "enforcement_compliance_rate": "82%",
+      "trend": "decreasing",
+      "last_updated": "2026-07-24T12:00:00Z",
+      "active_interventions": 3
+    }
+  ]
+}
+```
+
+---
+
 ### `GET /api/v1/analytics/compliance-efficacy`
 
 **Overview:** 
-These REST endpoints interface with the `TinyDB` NoSQL document store (`analytics_database.json`). They bypass the need for a dedicated MongoDB server while preserving strict document-based querying.
-- `city-comparison` returns aggregated AQI and compliance rates for New Delhi, Mumbai, and Bangalore.
-- `compliance-efficacy` returns historical logs of AI enforcement interventions and measures the percentage drop in AQI post-intervention to prove the platform's real-world value.
+Returns historical logs of AI enforcement interventions from TinyDB and measures the percentage drop in AQI post-intervention to prove the platform's real-world value.
+
+**cURL Example:**
+```bash
+curl -X 'GET' \
+  'http://localhost:8000/api/v1/analytics/compliance-efficacy' \
+  -H 'accept: application/json'
+```
+
+**Success Response (200 OK):**
+```json
+{
+  "interventions": [
+    {
+      "target_type": "Industrial",
+      "avg_improvement_aqi": 45,
+      "total_interventions": 12,
+      "success_rate": "75%"
+    },
+    {
+      "target_type": "Traffic",
+      "avg_improvement_aqi": 12,
+      "total_interventions": 34,
+      "success_rate": "90%"
+    }
+  ]
+}
+```
