@@ -59,4 +59,4 @@ def chat_with_supervisor(req: ChatRequest):
         
         return {"reply": result["messages"][-1].content}
     except Exception as e:
-        return {"error": str(e), "note": "Ensure OPENAI_API_KEY is set in your .env file to use the LangGraph supervisor."}
+        return {"error": str(e), "note": "Ensure GEMINI_API_KEY is set in your .env file to use the LangGraph supervisor."}

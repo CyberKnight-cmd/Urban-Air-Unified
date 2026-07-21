@@ -1,4 +1,4 @@
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.prebuilt import create_react_agent
 from langchain_core.tools import tool
 
@@ -40,9 +40,9 @@ tools = [get_aqi_forecast_and_attribution, get_enforcement_plan, get_health_advi
 def get_supervisor_app():
     """
     Initializes the LangGraph ReAct agent that orchestrates the workflow.
-    Requires OPENAI_API_KEY in the environment.
+    Requires GEMINI_API_KEY in the environment.
     """
-    model = ChatOpenAI(model="gpt-4o-mini")
+    model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
     
     system_prompt = (
         "You are the Urban Air Intelligence Supervisor, an AI orchestrator for city officials. "
