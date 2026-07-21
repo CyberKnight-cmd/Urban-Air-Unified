@@ -56,7 +56,12 @@ def chat_with_supervisor(req: ChatRequest):
         inputs = {"messages": [("user", context_msg)]}
         
         result = app_supervisor.invoke(inputs)
-        
-        return {"reply": result["messages"][-1].content}
+        content = result["messages"][-1].content
+        if isinstance(content, list) and len(content) > 0 and "text" in content[0]:
+            reply_text = content[0]["text"]
+        else:
+            reply_text = str(content)
+            
+        return {"reply": reply_text}
     except Exception as e:
         return {"error": str(e), "note": "Ensure GEMINI_API_KEY is set in your .env file to use the LangGraph supervisor."}
