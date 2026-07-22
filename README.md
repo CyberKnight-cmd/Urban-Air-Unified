@@ -1,6 +1,9 @@
 <div align="center">
 
 # 🌍 Urban-Air-Unified
+
+![Architecture Diagram](Architecture.jpeg)
+
 ### AI-Powered Air Quality Forecasting, Autonomous Enforcement & Real-time Advisories
 
 **ET AI Hackathon 2.0 Submission**
