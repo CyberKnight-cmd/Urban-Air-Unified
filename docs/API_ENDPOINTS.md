@@ -224,18 +224,21 @@ curl -X 'GET' \
       "current_avg_aqi": 280,
       "primary_pollutant_source": "Industrial",
       "enforcement_compliance_rate": "65%",
-      "trend": "increasing",
-      "last_updated": "2026-07-24T12:00:00Z",
-      "active_interventions": 14
+      "trend": "increasing"
     },
     {
       "city": "Mumbai",
-      "current_avg_aqi": 120,
+      "current_avg_aqi": 150,
       "primary_pollutant_source": "Traffic",
       "enforcement_compliance_rate": "82%",
-      "trend": "decreasing",
-      "last_updated": "2026-07-24T12:00:00Z",
-      "active_interventions": 3
+      "trend": "stable"
+    },
+    {
+      "city": "Bangalore",
+      "current_avg_aqi": 85,
+      "primary_pollutant_source": "Traffic",
+      "enforcement_compliance_rate": "90%",
+      "trend": "decreasing"
     }
   ]
 }
@@ -258,18 +261,26 @@ curl -X 'GET' \
 **Success Response (200 OK):**
 ```json
 {
-  "interventions": [
+  "overall_efficacy_score": 78.5,
+  "metrics": {
+    "average_aqi_drop_post_intervention": "12%",
+    "most_effective_target": "Construction Sites",
+    "least_effective_target": "Biomass Burning"
+  },
+  "recent_interventions": [
     {
-      "target_type": "Industrial",
-      "avg_improvement_aqi": 45,
-      "total_interventions": 12,
-      "success_rate": "75%"
+      "id": "INV-101",
+      "target": "Flatted Factories",
+      "aqi_before": 250,
+      "aqi_after": 210,
+      "status": "Success"
     },
     {
-      "target_type": "Traffic",
-      "avg_improvement_aqi": 12,
-      "total_interventions": 34,
-      "success_rate": "90%"
+      "id": "INV-102",
+      "target": "Open Waste Fire",
+      "aqi_before": 310,
+      "aqi_after": 305,
+      "status": "Failed"
     }
   ]
 }
